@@ -38,11 +38,12 @@ public final class VideoUtils {
 
     /**
      * utility to get a youtube id from a url
+     *
      * @param youtubeUrl
      * @return
      */
     public final static String getYoutubeID(String youtubeUrl) {
-        if(youtubeUrl==null)
+        if (youtubeUrl == null)
             return null;
 
         String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";

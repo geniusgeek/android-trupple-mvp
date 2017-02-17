@@ -2,13 +2,11 @@ package com.github.geniusgeek.trupple_mvp.view;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
@@ -27,9 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.github.geniusgeek.trupple_mvp.MVP;
 
@@ -58,11 +54,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MVP.Gene
     }
 
     public void showShortSnackbar(String text, int color) {
-        View  parentLayout = findViewById(android.R.id.content);
+        View parentLayout = findViewById(android.R.id.content);
         Snackbar snackbar = Snackbar
-                .make ( parentLayout, text, Snackbar.LENGTH_SHORT )
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ));
-        snackbar.show ( );
+                .make(parentLayout, text, Snackbar.LENGTH_SHORT)
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light));
+        snackbar.show();
     }
 
     public ViewDataBinding getBindingInstance() {
@@ -142,7 +138,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MVP.Gene
      */
     public Toolbar setToolbar(String title, Toolbar toolbar, boolean enableHome) {
         if (toolbar != null) {
-            this.toolbar=toolbar;
+            this.toolbar = toolbar;
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(title);
             getSupportActionBar().setHomeButtonEnabled(enableHome);
@@ -151,7 +147,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MVP.Gene
         return toolbar;
     }
 
-    public Toolbar getToolbar(){
+    public Toolbar getToolbar() {
         return toolbar;
     }
 

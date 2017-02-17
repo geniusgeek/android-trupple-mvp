@@ -63,7 +63,7 @@ public abstract class GenericActivity<ProvidedPresenterOps extends PresenterOps<
     /**
      * recommended method to override to use to innitialize items
      */
-    protected void initViews(){
+    protected void initViews() {
 
     }
 

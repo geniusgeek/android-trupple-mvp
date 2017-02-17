@@ -32,11 +32,12 @@ import com.github.geniusgeek.trupple_mvp.R;
 
 /**
  * created by geniusgeek
+ *
  * @author: based on https://gist.github.com/adelnizamutdinov/31c8f054d1af4588dc5c
-  * Date: 6/1/16
+ * Date: 6/1/16
  * Time: 7:13 AM
  */
-public  class EmptyRecyclerView extends RecyclerView {
+public class EmptyRecyclerView extends RecyclerView {
     @Nullable
     private View emptyView;
     @NonNull

@@ -56,7 +56,7 @@ public final class BitmapUtils {
                 .load(url)
                 .fit()
                 .placeholder(defId)
-                .into(destination, callback==null?new Callback.EmptyCallback():callback);
+                .into(destination, callback == null ? new Callback.EmptyCallback() : callback);
 
 
     }
@@ -75,7 +75,8 @@ public final class BitmapUtils {
                 .into(destination);
 
     }
-    public static void loadWidthHeightImagePicasso(final Context context, final String url,final int width,final int height, final @DrawableRes int defId, final ImageView destination) {
+
+    public static void loadWidthHeightImagePicasso(final Context context, final String url, final int width, final int height, final @DrawableRes int defId, final ImageView destination) {
         if (url == null) {
             destination.setImageResource(defId);
             return;

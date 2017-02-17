@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 public class AutoFitRecyclerView extends EmptyRecyclerView {
     private GridLayoutManager manager;
     private int columnWidth = -1;
-    private int spanCount=-1;
+    private int spanCount = -1;
 
     public AutoFitRecyclerView(Context context) {
         super(context);
@@ -39,14 +39,15 @@ public class AutoFitRecyclerView extends EmptyRecyclerView {
         setLayoutManager(manager);
 
         // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
-      //  addItemDecoration(new GridSpacingItemDecoration(spanCount, 14, false));
+        //  addItemDecoration(new GridSpacingItemDecoration(spanCount, 14, false));
     }
 
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {
         super.onMeasure(widthSpec, heightSpec);
         if (columnWidth > 0) {
-            spanCount=Math.max(1, getMeasuredWidth() / columnWidth);;
+            spanCount = Math.max(1, getMeasuredWidth() / columnWidth);
+            ;
             manager.setSpanCount(spanCount);
 
         }

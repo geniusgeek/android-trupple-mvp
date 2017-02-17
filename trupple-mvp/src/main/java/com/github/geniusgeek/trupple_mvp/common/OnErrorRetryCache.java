@@ -12,16 +12,10 @@ import rx.functions.Func0;
 
 public final class OnErrorRetryCache<T> {
 
-    public static <T> Observable<T> from(Observable<T> source) {
-        return new OnErrorRetryCache<>(source).deferred;
-    }
-
     private final Observable<T> deferred;
     private final Semaphore singlePermit = new Semaphore(1);
-
     private Observable<T> cache = null;
     private Observable<T> inProgress = null;
-
     private OnErrorRetryCache(final Observable<T> source) {
         deferred = Observable.defer(new Func0<Observable<T>>() {
             @Override
@@ -31,8 +25,11 @@ public final class OnErrorRetryCache<T> {
         });
     }
 
-    private Observable<T> createWhenObserverSubscribes(Observable<T> source)
-    {
+    public static <T> Observable<T> from(Observable<T> source) {
+        return new OnErrorRetryCache<>(source).deferred;
+    }
+
+    private Observable<T> createWhenObserverSubscribes(Observable<T> source) {
         singlePermit.acquireUninterruptibly();
 
         Observable<T> cached = cache;

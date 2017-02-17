@@ -6,7 +6,7 @@ package com.github.geniusgeek.trupple_mvp.exceptions;
  * when a query on the user database is performed using {@Code Integer} userId
  * Created by Genius on 12/7/2015.
  */
-public  final class UserNotFoundException extends Exception {
+public final class UserNotFoundException extends Exception {
     public UserNotFoundException(String msg) {
         super(msg);
     }

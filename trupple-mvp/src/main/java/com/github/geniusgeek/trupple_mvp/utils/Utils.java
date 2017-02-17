@@ -104,10 +104,11 @@ public final class Utils {
 
     /**
      * calculate the density of the screen
+     *
      * @param context
      * @return
      */
-    public static boolean isLargeScreen(Activity context){
+    public static boolean isLargeScreen(Activity context) {
         DisplayMetrics metrics = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthPixels = metrics.widthPixels;

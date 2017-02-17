@@ -2,10 +2,9 @@ package com.github.geniusgeek.trupple_mvp;
 
 import android.view.View;
 
-
-import com.github.geniusgeek.trupple_mvp.view.ContextView;
 import com.github.geniusgeek.trupple_mvp.model.ModelOps;
 import com.github.geniusgeek.trupple_mvp.presenter.PresenterOps;
+import com.github.geniusgeek.trupple_mvp.view.ContextView;
 
 import java.util.List;
 

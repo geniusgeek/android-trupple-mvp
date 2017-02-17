@@ -3,6 +3,7 @@ package com.github.geniusgeek.trupple_mvp.view.adapter;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -152,9 +153,10 @@ public abstract class GenericRecyclerAdapter<T extends Object, VH extends Recycl
 
     /**
      * get the data
+     *
      * @return
      */
-    public List<T> getData(){
+    public List<T> getData() {
         return data;
     }
 }
