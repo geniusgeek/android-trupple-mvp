@@ -16,6 +16,7 @@ package com.github.geniusgeek.trupple_mvp.utils;
  * limitations under the License.
  */
 
+import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -34,8 +36,10 @@ import android.webkit.MimeTypeMap;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * @author Peli
@@ -293,7 +297,8 @@ public final class FileUtils {
      * @see #isLocal(String)
      * @see #getFile(Context, Uri)
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    //@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getPath(final Context context, final Uri uri) {
 
         if (DEBUG)
@@ -385,7 +390,7 @@ public final class FileUtils {
      * @author paulburke
      * @see #getPath(Context, Uri)
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    //@RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static File getFile(Context context, Uri uri) {
         if (uri != null) {
             String path = getPath(context, uri);
@@ -523,6 +528,41 @@ public final class FileUtils {
         // Only return URIs that can be opened with ContentResolver
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         return intent;
+    }
+
+    /**
+     * convert a bitmap to a Uri
+     * @param context
+     * @param mBitmap
+     * @return
+     */
+    public static Uri bitmapToUriConverter(Context context, Bitmap mBitmap) {
+        Uri uri = null;
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options ( );
+            // Calculate inSampleSize
+            // options.inSampleSize = calculateInSampleSize(options, 100, 100);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            Bitmap newBitmap = Bitmap.createScaledBitmap ( mBitmap, 200, 200,
+                    true );
+            File file = new File ( context.getFilesDir ( ), "Image"
+                    + new Random( ).nextInt ( ) + ".jpeg" );
+            FileOutputStream out = context.openFileOutput ( file.getName ( ),
+                    Context.MODE_WORLD_READABLE );
+            newBitmap.compress ( Bitmap.CompressFormat.JPEG, 100, out );
+            out.flush ( );
+            out.close ( );
+            //get absolute path
+            String realPath = file.getAbsolutePath ( );
+            File f = new File ( realPath );
+            uri = Uri.fromFile ( f );
+
+        } catch (Exception e) {
+            Log.e ( "Your Error Message", e.getMessage ( ) );
+        }
+        return uri;
     }
 
 }

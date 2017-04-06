@@ -2,6 +2,7 @@ package com.github.geniusgeek.trupple_mvp;
 
 import android.view.View;
 
+import com.github.geniusgeek.trupple_mvp.exceptions.ErrorResponse;
 import com.github.geniusgeek.trupple_mvp.model.ModelOps;
 import com.github.geniusgeek.trupple_mvp.presenter.PresenterOps;
 import com.github.geniusgeek.trupple_mvp.view.ContextView;
@@ -23,9 +24,11 @@ public interface MVP {
     /**
      * generic model that any model class can implement to be able to get to presenter back and forth
      */
-    interface GenericModelOps extends ModelOps<GenericPresenter> {
+    interface GenericModelOps<M> extends ModelOps {
         String TAG = new Object() {
         }.getClass().getEnclosingClass().getSimpleName();
+
+        M getModel();
 
         /**
          * this defines the callback response to be carrried our on the presenter layer
@@ -35,7 +38,7 @@ public interface MVP {
 
             void onSuccess(M model);
 
-            void onFailure(Throwable cause);
+            void onFailure(ErrorResponse cause);
         }
     }
 

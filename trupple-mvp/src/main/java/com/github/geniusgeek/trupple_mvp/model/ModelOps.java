@@ -1,18 +1,23 @@
 package com.github.geniusgeek.trupple_mvp.model;
 
+import com.github.geniusgeek.trupple_mvp.presenter.PresenterOps;
+
 /**
+ *
  * The base interface that an operations ("Ops") class in the
  * Model layer must implement.
+ *
+ * @param <T> Defines the Presenter Ops
  */
-public interface ModelOps<RequiredPresenterOps> {
+public interface ModelOps<T extends PresenterOps> {
     /**
      * Hook method dispatched by the GenericModel framework to
      * initialize an operations ("Ops") object after it's been
      * instantiated.
      *
-     * @param view The currently active RequiredPresenterOps.
+     * @param presenter The currently active RequiredPresenterOps.
      */
-    void onCreate(RequiredPresenterOps view);
+     void onCreate(T presenter);
 
     /**
      * Hook method called when an Ops object in the Presenter layer is

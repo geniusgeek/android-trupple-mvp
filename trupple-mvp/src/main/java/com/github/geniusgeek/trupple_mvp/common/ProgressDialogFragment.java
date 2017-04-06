@@ -30,8 +30,8 @@ public final class ProgressDialogFragment extends DialogFragment {
      *
      * @return
      */
-    public static Fragment newInstance(final String postTitle, String postMessage) {
-        Fragment fragment = new ProgressDialogFragment();
+    public static DialogFragment newInstance(final String postTitle, String postMessage) {
+        DialogFragment fragment = new ProgressDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString("category_title", postTitle);
         bundle.putString("message", postMessage);

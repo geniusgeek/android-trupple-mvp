@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -24,8 +23,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -37,9 +40,12 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -49,7 +55,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,7 +71,7 @@ import rx.functions.Func0;
  * This class serves the responsibility of doing location centric operations such as comparison etc
  * Created by Genius on 12/24/2015.
  */
-public class LocationUtils {
+public final class LocationUtils {
     public final static double AVERAGE_RADIUS_OF_EARTH = 6371;
     /**
      * 1 degree of latitude ~= 69 miles
@@ -80,6 +88,67 @@ public class LocationUtils {
         throw new AssertionError("cannot instantiate this class");
     }
 
+
+    /**
+     * request Google location place
+     * @param activity
+     * @param requestCode
+     */
+    public static final void requestGooglePlace(Activity activity, int requestCode) {
+        try {
+            // The autocomplete activity requires Google Play Services to be available. The intent
+            // builder checks this and throws an exception if it is not the case.
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    .build(activity);
+            Utils.hideSoftKeyboard(activity);
+            activity.startActivityForResult(intent, requestCode);
+        } catch (GooglePlayServicesRepairableException e) {
+            // Indicates that Google Play Services is either not installed or not up to date. Prompt
+            // the user to correct the issue.
+            GoogleApiAvailability.getInstance().getErrorDialog(activity, e.getConnectionStatusCode(),
+                    0 /* requestCode */).show();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // Indicates that Google Play Services is not available and the problem is not easily
+            // resolvable.
+            String message = "Google Play Services is not available: " +
+                    GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
+
+            Log.e(TAG, message);
+            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    /**
+     * convert from {@link android.location.Location} to {@link LatLng}
+     *
+     * @param location
+     * @return
+     * @patternUsed: Adapter Pattern(variant)
+     * @see Location
+     */
+    public static LatLng locationAdapter(android.location.Location location) {
+        if (location == null) {
+            return null;
+        }
+        return new LatLng(location.getLatitude(), location.getLongitude());
+    }
+
+    /**
+     * convert from {@link Location} to {@link LatLng}
+     *
+     * @param location
+     * @return
+     * @patternUsed: Adapter Pattern(variant)
+     * @see Location
+     */
+    public static LatLng latLngAdapter(android.location.Location location) {
+        if (location == null) {
+            return null;
+        }
+        return new LatLng(location.getLatitude(), location.getLongitude());
+    }
 
     /**
      * get a location around a user with longituve and latitude and miles radius
@@ -116,7 +185,7 @@ public class LocationUtils {
      * @return
      */
     @NonNull
-    private static Location createLocation(double latitude, double longitude) {
+    public static Location createLocation(double latitude, double longitude) {
         Location location = new Location("");
         location.setLatitude(latitude);
         location.setLongitude(longitude);
@@ -194,6 +263,75 @@ public class LocationUtils {
         }
         return Collections.emptyList();
     }
+
+
+    /**
+     * get direct access to google maps to get the location from string
+     *
+     * @param address
+     * @return
+     * @throws JSONException
+     * @throws UnsupportedEncodingException
+     */
+    public static LatLng getLocationFromString(String address) throws JSONException, UnsupportedEncodingException {
+
+        HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?address="
+                + URLEncoder.encode(address, "UTF-8") + "&ka&sensor=false");
+        HttpClient client = new DefaultHttpClient();
+        HttpResponse response;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            response = client.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+            InputStream stream = entity.getContent();
+            int b;
+            while ((b = stream.read()) != -1) {
+                stringBuilder.append((char) b);
+            }
+        } catch (ClientProtocolException e) {
+        } catch (IOException e) {
+        }
+
+        JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+
+        double lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                .getJSONObject("geometry").getJSONObject("location")
+                .getDouble("lng");
+
+        double lat = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                .getJSONObject("geometry").getJSONObject("location")
+                .getDouble("lat");
+
+        return new LatLng(lat, lng);
+    }
+  /*
+    *//**
+     * note this methos is called on the ui thread, therefore it is adviced that A threadpool or executor should be used to access
+     * it, or the #getLocalityObservable Reactive approach should be used, this is left open-ended based on the developer preference
+     *
+     * @param context
+     * @param location
+     * @return
+     *//*
+
+    @Nullable
+    public static String getLocality(Context context, Location location) {
+        List<Address> addressList = getAddresses(context, location);
+        try {
+            if (addressList.isEmpty())
+                addressList = getStringFromLocation(location.getLatitude(), location.getLongitude(),
+                        context.getString(R.string.geocoding_api_key));
+
+            if (!addressList.isEmpty()) {
+                Address address = addressList.get(0);
+                return address.getAddressLine(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }*/
 
     /**
      * get locality from GoogleMaps, this is a fallback plan when normal Geocoder fails to get location.
@@ -370,7 +508,7 @@ public class LocationUtils {
      * @return
      * @see
      */
-    private static double calculateDistanceFaster(double lat1, double lon1,
+    public static double calculateDistanceFaster(double lat1, double lon1,
                                                   double lat2, double lon2) {
         double piDistance = 0.017453292519943295;    // Math.PI / 180
 
@@ -398,7 +536,7 @@ public class LocationUtils {
         return 6371 * Math.sqrt(x * x + y * y);// where R is the earth's Radiu// 2 * R; R = 6371 km
     }
 
-    public static boolean hasLollipop() {
+    public static boolean isLolipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
@@ -427,25 +565,22 @@ public class LocationUtils {
      * @param request
      * @return
      */
-    public static boolean checkPlayServices(SharedPreferences sharedPreferences, Activity context, int request) {
+    public static boolean checkPlayServices(Activity context, int request) {
         WeakReference<Activity> activityWeakReference = new WeakReference<>(context);
         try {
-            if (sharedPreferences.contains("play"))
-                return sharedPreferences.getBoolean("play", false);
             int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activityWeakReference.get());
-            if (resultCode == ConnectionResult.SUCCESS) {
-                sharedPreferences.edit().putBoolean("play", true).apply();
-                return true;
-            }
+            if (resultCode == ConnectionResult.SUCCESS)
+                 return true;
+
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
                 GooglePlayServicesUtil.getErrorDialog(resultCode, activityWeakReference.get(),
                         request).show();
             }
-            return false;
-        } catch (NullPointerException ex) {
-            sharedPreferences.edit().putBoolean("play", false).apply();
-            return false;
+         } catch (NullPointerException ex) {
+            ex.printStackTrace();
         }
+        return false;
+
     }
 
     /**
@@ -503,7 +638,12 @@ public class LocationUtils {
         builder.setAlwaysShow(true);
         PendingResult<LocationSettingsResult> result =
                 LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
-        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+        result.setResultCallback(getResultCallback(activity));
+    }
+
+    @NonNull
+    private static ResultCallback<LocationSettingsResult> getResultCallback(final Activity activity) {
+        return new ResultCallback<LocationSettingsResult>() {
             @Override
             public void onResult(LocationSettingsResult result) {
                 final Status status = result.getStatus();
@@ -530,6 +670,21 @@ public class LocationUtils {
                         break;
                 }
             }
-        });
+        };
+    }
+
+
+    /**
+     * Prompt user to enable GPS and Location Services
+     * @param mGoogleApiClient
+     * @param activity
+     */
+    public static void locationChecker(LocationRequest locationRequest,GoogleApiClient mGoogleApiClient, final Activity activity) {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+        result.setResultCallback(getResultCallback(activity));
     }
 }

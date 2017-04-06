@@ -1,5 +1,7 @@
 package com.github.geniusgeek.trupple_mvp.utils;
 
+import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.EditText;
@@ -77,5 +79,17 @@ public enum ValidationUtils {
         }
         return false;
     }
+
+
+    /**
+     * This is used to check the given URL is valid or not.
+     * @param uri
+     * @return true if url is valid, false otherwise.
+     */
+    public boolean isValidUri(Context context, String uri) {
+        Uri resimUri = Uri.parse(uri);
+        return FileUtils.getFile(context, resimUri)!=null;
+    }
+
 
 }

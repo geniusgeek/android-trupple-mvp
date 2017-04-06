@@ -41,6 +41,13 @@ public final class AlertDialogFragment extends DialogFragment {
     private DialogInterface.OnClickListener onCancelClickListener;
     private View view;
 
+    /**
+     * Factory method to create a <code>{@link AlertDialogFragment}</code>
+     * @param title
+     * @param message
+     * @param onOkClickListener
+     * @return
+     */
     public static AlertDialogFragment newInstance(String title, String message, DialogInterface.OnClickListener onOkClickListener) {
         Bundle args = new Bundle();
         args.putString(PARAM_TITLE, title);

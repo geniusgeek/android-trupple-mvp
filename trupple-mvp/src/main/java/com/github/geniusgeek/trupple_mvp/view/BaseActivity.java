@@ -321,15 +321,27 @@ public abstract class BaseActivity extends AppCompatActivity implements MVP.Gene
     }
 
     /**
-     * toggle visibility on a view
+     * set visibility of a view
      *
      * @param view
      * @param visibility
      */
-    public void setViewVisible(View view, boolean visibility) {
+    public void setViewVisibility(View view, boolean visibility) {
         if (view == null)
             return;
         view.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+
+    /**
+     * toggle visibility on a view
+     *
+     * @param view
+      */
+    public void toggleVisibility(View view) {
+        if (view == null)
+            return;
+        view.setVisibility(view.getVisibility()==View.VISIBLE ? View.GONE : View.VISIBLE);
     }
 
 
