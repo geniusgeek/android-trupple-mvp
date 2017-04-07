@@ -13,6 +13,12 @@ public final class ErrorResponse {
     private String reason;
     private int responseCode;
 
+    /**
+     * constructor for ErrorResponse
+     * @param responseCode error code
+     * @param reason the error reasons
+     * @param body the error body
+     */
     public ErrorResponse(int responseCode, String  reason,String body) {
         this.body = body;
         this.reason = reason;

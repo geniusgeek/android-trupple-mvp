@@ -150,6 +150,16 @@ public final class NotificationUtils {
         }
     }
 
+    /**
+     * show small Notification Tip
+     * @param mBuilder
+     * @param icon
+     * @param title
+     * @param message
+     * @param timeStamp
+     * @param resultPendingIntent
+     * @param alarmSound
+     */
     private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
@@ -173,6 +183,17 @@ public final class NotificationUtils {
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
+    /**
+     * show Big Notification
+     * @param bitmap
+     * @param mBuilder
+     * @param icon
+     * @param title
+     * @param message
+     * @param timeStamp
+     * @param resultPendingIntent
+     * @param alarmSound
+     */
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
         bigPictureStyle.setBigContentTitle(title);

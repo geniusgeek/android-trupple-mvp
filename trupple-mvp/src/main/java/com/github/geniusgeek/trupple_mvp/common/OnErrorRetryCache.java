@@ -17,6 +17,11 @@ public final class OnErrorRetryCache<T> {
     private final Semaphore singlePermit = new Semaphore(1);
     private Observable<T> cache = null;
     private Observable<T> inProgress = null;
+
+    /**
+     *
+     * @param source
+     */
     private OnErrorRetryCache(final Observable<T> source) {
         deferred = Observable.defer(new Func0<Observable<T>>() {
             @Override
@@ -36,6 +41,11 @@ public final class OnErrorRetryCache<T> {
         return new OnErrorRetryCache<>(source).deferred;
     }
 
+    /**
+     * create Progress observable after subsciption
+     * @param source
+     * @return
+     */
     private Observable<T> createWhenObserverSubscribes(Observable<T> source) {
         singlePermit.acquireUninterruptibly();
 
@@ -64,6 +74,9 @@ public final class OnErrorRetryCache<T> {
         return inProgress;
     }
 
+    /**
+     * cache an inprogress Observable
+     */
     private void onSuccess() {
         cache = inProgress;
     }

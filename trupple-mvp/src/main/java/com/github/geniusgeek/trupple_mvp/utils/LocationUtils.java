@@ -119,14 +119,11 @@ public final class LocationUtils {
     }
 
 
-
     /**
      * convert from {@link android.location.Location} to {@link LatLng}
      *
-     * @param location
-     * @return
-     * @patternUsed: Adapter Pattern(variant)
-     * @see Location
+     * @param location {@link android.location.Location} the location
+     * @return returns {@link LatLng}
      */
     public static LatLng locationAdapter(android.location.Location location) {
         if (location == null) {
@@ -152,6 +149,10 @@ public final class LocationUtils {
 
     /**
      * get a location around a user with longituve and latitude and miles radius
+     * @param y0
+     * @param x0
+     * @param radius
+     * @return return {@link Location}
      */
     public static Location getALocationAround(double y0, double x0, int radius) {
         Random random = new Random();
@@ -180,9 +181,9 @@ public final class LocationUtils {
     /**
      * factory method to create location {@link Location} model of this application
      *
-     * @param latitude
-     * @param longitude
-     * @return
+     * @param latitude the latitude
+     * @param longitude the longitude
+     * @return {@link Location}
      */
     @NonNull
     public static Location createLocation(double latitude, double longitude) {
@@ -194,11 +195,12 @@ public final class LocationUtils {
 
 
     /**
-     * get user locality
+     * get user locality {@link Observable}
      *
-     * @param context
-     * @param location
-     * @return
+     * @param context the context
+     * @param location the location
+     * @param geoCodingApiKey the API key
+     * @return  {@link Observable}
      */
     public static Observable<String> getLocalityObservable(final Context context, final Location location, final String geoCodingApiKey) {
         return Observable.defer(new Func0<Observable<String>>() {
@@ -213,9 +215,9 @@ public final class LocationUtils {
     /**
      * get an observable for the country
      *
-     * @param context
-     * @param location
-     * @return
+     * @param context the context
+     * @param location the {@link Location}
+     * @return  {@link Observable}
      */
     public static Observable<String> getCountryObservable(final Context context, final Location location) {
         return Observable.defer(new Func0<Observable<String>>() {
@@ -228,12 +230,12 @@ public final class LocationUtils {
     }
 
     /**
-     * note this methos is called on the ui thread, therefore it is adviced that A threadpool or executor should be used to access
+     *  note this methos is called on the ui thread, therefore it is adviced that A threadpool or executor should be used to access
      * it, or the #getLocalityObservable Reactive approach should be used, this is left open-ended based on the developer preference
-     *
-     * @param context
-     * @param location
-     * @return
+     * @param context the context
+     * @param location the {@link Location}
+     * @param geoCodingApiKey the API key
+     * @return Locality
      */
     @Nullable
     public static String getLocality(Context context, Location location, String geoCodingApiKey) {
@@ -252,6 +254,12 @@ public final class LocationUtils {
         return "";
     }
 
+    /**
+     * get Addresses
+     * @param context, the context
+     * @param location, {@link Location}
+     * @return List of Addresses
+     */
     @Nullable
     private static List<Address> getAddresses(final Context context, final Location location) {
         Geocoder gcd = new Geocoder(context, Locale.getDefault());
@@ -416,7 +424,10 @@ public final class LocationUtils {
         return calculateDistanceFaster(locationOne.getLatitude(), locationOne.getLongitude(), locationTwo.getLatitude(), locationTwo.getLongitude());
     }
 
-
+    /**
+     * show Location Dialog
+     * @param context
+     */
     public static void showLocationDialog(final Context context) {
         // Build the alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

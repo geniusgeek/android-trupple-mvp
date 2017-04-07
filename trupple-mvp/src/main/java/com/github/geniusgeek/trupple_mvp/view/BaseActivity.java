@@ -194,6 +194,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MVP.Gene
     }
 
 
+    /**
+     * Go to the next Activity
+     * @param clazz the class
+     * @param keyExtras the key of the data to put
+     * @param valueExtras the extras
+     * @param <Type> type of the data
+     * @param <V> the Value type
+     */
     @Override
     public <Type, V> void goToNextActivity(Class<? extends Activity> clazz, Type keyExtras, V valueExtras) {
         Intent intent = new Intent(getActivityContext(), clazz);
@@ -295,12 +303,12 @@ public abstract class BaseActivity extends AppCompatActivity implements MVP.Gene
     }
 
     /**
-     * TODO: please rewire this into the framework, therefore create a GenericPresenter class to do all these
-     * <T></>
-     *
+     * put Serializable data
      * @param tag
+     * @param value
      * @param view
-     * @return
+     * @param <T>
+     * @param <A>
      */
     protected <T extends Serializable, A extends Activity> void putSerializableToIntent(String tag, T value, A view) {
         Intent intent = view.getIntent();
