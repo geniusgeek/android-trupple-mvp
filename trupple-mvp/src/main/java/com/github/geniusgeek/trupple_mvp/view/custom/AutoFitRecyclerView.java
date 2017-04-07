@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.AttributeSet;
 
-public class AutoFitRecyclerView extends EmptyRecyclerView {
+public final class AutoFitRecyclerView extends EmptyRecyclerView {
     private GridLayoutManager manager;
     private int columnWidth = -1;
     private int spanCount = -1;

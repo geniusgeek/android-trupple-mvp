@@ -12,8 +12,8 @@ import com.github.geniusgeek.trupple_mvp.presenter.PresenterOps;
 
 import java.lang.reflect.ParameterizedType;
 
-
 /**
+ * **
  * This Activity provides a framework for mediating access to a object
  * residing in the Presenter layer in the Model-View-Presenter (MVP)
  * pattern.  It automatically handles runtime configuration changes in
@@ -22,19 +22,13 @@ import java.lang.reflect.ParameterizedType;
  * that all lifecycle hook method calls are automatically logged.  It
  * also implements the ContextView interface that provides access to
  * the Activity and Application contexts in the View layer.
- * <p>
- * The three types used by a GenericActivity are the following:
- * <ol>
- * <li><code>RequiredViewOps</code>, the class or interface that
- * defines the methods available to the Presenter object from the
- * View layer.</li>
- * <li><code>ProvidedPresenterOps</code>, the class or interface
+ *
+ * @param <ProvidedPresenterOps>  the class or interface
  * that defines the methods available to the View layer from the
- * Presenter object.</li>
- * <li><code>PresenterType</code>, the class created/used by the
- * GenericActivity framework to implement an Presenter object.</li>
- * </ol>
- */
+ * Presenter object. It also the class created/used by the
+ * GenericActivity framework to implement an Presenter object.
+ *
+  */
 public abstract class GenericActivity<ProvidedPresenterOps extends PresenterOps<? extends ContextView>>
         extends LifecycleLoggingActivity {
     /**
@@ -61,7 +55,7 @@ public abstract class GenericActivity<ProvidedPresenterOps extends PresenterOps<
     }
 
     /**
-     * recommended method to override to use to innitialize items
+     * recommended method to override to use to innitialize items if need be
      */
     protected void initViews() {
 

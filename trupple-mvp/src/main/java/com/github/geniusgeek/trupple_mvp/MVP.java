@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * Created by Genius on 16/02/2016.
  * <p>
- * This class Defines the interfaces for the   Lukaround Client application
- * that are required and provided by the layers in the
- * Model-View-Presenter (MVP) pattern.  This design ensures loose
- * coupling between the layers in the app's MVP-based architecture.
+ * This class Defines the interface models implementing the Model-View-Presenter (MVP) pattern.
+ * This design ensures loose coupling between the layers in the app's MVP-based architecture.
  * <p>
- * The aim of this class is to insulate you from the underlying implementation and make it clean for you to work and handle
- * configuration change and other issues.
+ * The aim of this class is to insulate you from the underlying implementation and make it clean and easy
+ * for developers to implement MVP pattern in their android apps.
+ * Secondly, it fixes the android configuration change/rotation issues so developers just focus on
+ * implementating features needed for their apps.
  */
 public interface MVP {
     /**

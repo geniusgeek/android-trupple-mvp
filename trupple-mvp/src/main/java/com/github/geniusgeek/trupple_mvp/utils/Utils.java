@@ -44,11 +44,22 @@ public final class Utils {
         return new ArrayList<T>(Arrays.asList(args));
     }
 
-
+    /**
+     * get valueset of a map
+     * @param map
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Set<V> valueSet(final Map<K, V> map) {
         return new HashSet<>(map.values());
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     */
     public static String shuffle(String input) {
         List<Character> characters = new ArrayList<>();
         for (char c : input.toCharArray()) {
@@ -62,6 +73,10 @@ public final class Utils {
         return output.toString();
     }
 
+    /**
+     * hide keyboard input
+     * @param activity
+     */
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
@@ -69,6 +84,12 @@ public final class Utils {
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
+    /**
+     * remove a character from a string
+     * @param s
+     * @param c
+     * @return
+     */
     public static String removeChar(String s, char c) {
         StringBuffer buf = new StringBuffer(s.length());
         buf.setLength(s.length());
@@ -80,10 +101,22 @@ public final class Utils {
         return buf.toString();
     }
 
+    /**
+     * delete non digit from string
+     * @param s
+     * @return
+     */
     public static String deleteAllNonDigit(String s) {
         String temp = s.replaceAll("\\D", "");
         return temp;
     }
+
+    /**
+     * test equality of two string insensitive of Whitespace and Case
+     * @param a
+     * @param b
+     * @return
+     */
 
     public static boolean caseAndWhiteSpaceInsensitiveEq(String a, String b) {
         a = (null != a) ? a.replaceAll("\\s+", "").toUpperCase() : null;

@@ -37,7 +37,7 @@ import com.github.geniusgeek.trupple_mvp.R;
  * Date: 6/1/16
  * Time: 7:13 AM
  */
-public class EmptyRecyclerView extends RecyclerView {
+public final class EmptyRecyclerView extends RecyclerView {
     @Nullable
     private View emptyView;
     @NonNull

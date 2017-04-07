@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * This is a generic Fragment that guarantees retainance of te instance on rotation.
+ * This is a generic Fragment that guarantees retainance of the instance on rotation.
  * Created by Genius on 4/11/16.
  */
 public abstract class GenericFragment extends Fragment {
@@ -34,6 +34,14 @@ public abstract class GenericFragment extends Fragment {
     public final static String TAG = new Object() {
     }.getClass().getEnclosingClass().getSimpleName();
 
+
+    /**
+     * factory method to handle the creation of {@link GenericFragment} object
+     * @param args
+     * @param clss
+     * @param <T>
+     * @return
+     */
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static <T extends Fragment> T newInstance(Bundle args, Class<T> clss) {
 
@@ -47,6 +55,13 @@ public abstract class GenericFragment extends Fragment {
 
         return type;
     }
+
+    /**
+     * factory method to create new instance of GenericFragment
+     * @param clss
+     * @param <T>
+     * @return
+     */
 
     public static <T extends Fragment> T newInstance(Class<T> clss) {
         try {
@@ -115,6 +130,10 @@ public abstract class GenericFragment extends Fragment {
         return getClass().getSimpleName();
     }
 
+    /**
+     * switch visibility between views
+     * @param view
+     */
     public void switchVisibility(final View view) {
         boolean visible = view.getVisibility() == View.VISIBLE;
         TranslateAnimation translateDown = new TranslateAnimation(0, 0, 0, view.getY());
@@ -131,12 +150,20 @@ public abstract class GenericFragment extends Fragment {
     }
 
 
+    /**
+     * show progress dialog
+     * @param title
+     * @param text
+     */
     protected void showProgress(String title, String text) {
         ProgressDialogFragment progressDialogFragment = (ProgressDialogFragment) ProgressDialogFragment.newInstance(title, text);
         progressDialogFragment.setTargetFragment(this, 0);
         progressDialogFragment.show(getFragmentManager(), ProgressDialogFragment.TAG);
     }
 
+    /**
+     * hide progress dialog
+     */
     protected void hideProgress() {
         ProgressDialogFragment fragment = (ProgressDialogFragment) getFragmentManager().findFragmentByTag(ProgressDialogFragment.TAG);
 
@@ -222,6 +249,10 @@ public abstract class GenericFragment extends Fragment {
         return (T) getActivity();
     }
 
+
+    /**
+     * interface to listen for when internet is connected
+     */
     public interface ConnectedCallback {
         void internetConnected(boolean connected);
     }

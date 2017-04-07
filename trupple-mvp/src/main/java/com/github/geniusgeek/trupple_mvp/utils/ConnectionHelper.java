@@ -17,9 +17,7 @@ import java.util.Enumeration;
  */
 public final class ConnectionHelper {
     private static final String TAG = "ConnectionHelper";
-    public static long lastNoConnectionTs = -1;
-    public static boolean isOnline = true;
-    private static int networkId;
+
 
     private ConnectionHelper() {
         throw new AssertionError("cannot instantiate this class");

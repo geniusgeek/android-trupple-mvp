@@ -61,7 +61,7 @@ public final class DrawableUtils {
     }
 
 
-    /**
+    /**convert Ninepatch to Bitmap
      * @param drawable
      * @return
      */
@@ -90,7 +90,7 @@ public final class DrawableUtils {
         return spannableString;
     }
 
-    /**
+    /**convert a drawale to Bitmap
      * @param drawable
      * @return
      */

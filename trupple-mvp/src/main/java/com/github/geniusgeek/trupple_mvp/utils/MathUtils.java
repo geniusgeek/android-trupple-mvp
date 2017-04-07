@@ -15,18 +15,14 @@ public final class MathUtils {
     }
 
 
-  /*  public double calculateSegment(Location location){
-        double longitude=location.getLongitude();
-        double latitude=location.getLatitude();
-        Point point = new Point(latitude,longitude);
-        double radius=LocationUtils.FIVE_MILES_RADIUS;
-        double area=Math.PI*Math.pow(radius,2);
-    }*/
+    /**
+     * check if two or more values are equal
+     * @param val
+     * @return
+     */
+    public static boolean isEqual(double vala,double... val) {
 
-
-    public static boolean isEqual(double... val) {
-
-        BigDecimal a = roundingUpBigDecimal(val[0], 3);
+        BigDecimal a = roundingUpBigDecimal(vala, 3);
         for (double value : val) {
             BigDecimal b = roundingUpBigDecimal(value, 3);
             if (a.equals(b)) return true;
@@ -34,10 +30,22 @@ public final class MathUtils {
         return false;
     }
 
+    /**
+     * roundup a number
+     * @param number the digit to roundup
+     * @param numberOfDecimalPt the number of decimal points to roundup to
+     * @return
+     */
     public static float roundingUpFloat(double number, int numberOfDecimalPt) {
         return new BigDecimal(number).setScale(numberOfDecimalPt, BigDecimal.ROUND_HALF_UP).floatValue();
     }
 
+    /**
+     * roundup a number
+     * @param number the digit to roundup
+     * @param numberOfDecimalPt the number of decimal points to roundup to
+     * @return
+     */
     public static BigDecimal roundingUpBigDecimal(double number, int numberOfDecimalPt) {
         return new BigDecimal(number).setScale(numberOfDecimalPt, BigDecimal.ROUND_HALF_UP);
 

@@ -30,7 +30,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * Created by DOTECH on 16/02/2016.
+ * Created by Genius on 16/02/2016.
  */
 public final class BitmapUtils {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -44,7 +44,14 @@ public final class BitmapUtils {
         throw new AssertionError("cannot instantiate this object");
     }
 
-
+    /**
+     * load image using picasso Library
+     * @param context
+     * @param url the url to load
+     * @param defId the default drawable id to use as placeholder
+     * @param destination the destination Imageview
+     * @param callback the callback
+     */
     public static void loadImagePicasso(final Context context, final String url, final @DrawableRes int defId, final ImageView destination
             , Callback callback) {
         if (url == null) {
@@ -76,6 +83,15 @@ public final class BitmapUtils {
 
     }
 
+    /**
+     *
+     * @param context
+     * @param url url of the image
+     * @param width width of the image
+     * @param height height of the image
+     * @param defId placeholder for image
+     * @param destination the destination imageview
+     */
     public static void loadWidthHeightImagePicasso(final Context context, final String url, final int width, final int height, final @DrawableRes int defId, final ImageView destination) {
         if (url == null) {
             destination.setImageResource(defId);
@@ -144,12 +160,23 @@ public final class BitmapUtils {
 
     }
 
+    /**
+     * convert bytearray to bitmap
+     * @param byteArray
+     * @return
+     */
     public static Bitmap byteArrayToBitmap(byte[] byteArray) {
         ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(byteArray);
         Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
         return bitmap;
     }
 
+    /**
+     * get {@link Uri} from resource
+     * @param context
+     * @param resource
+     * @return uri for resource
+     */
     public static String getUrlFromResource(final Context context, final int resource) {
 
         ExecutorService executors = Executors.newFixedThreadPool(2);
@@ -177,6 +204,12 @@ public final class BitmapUtils {
         return Uri.fromFile(file);
     }
 
+    /**
+     * add overlay for image
+     * @param bmp1
+     * @param overlay
+     * @return
+     */
     public static Bitmap putOverlay(Bitmap bmp1, Bitmap overlay) {
         Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bmOverlay);
