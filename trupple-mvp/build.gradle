@@ -36,17 +36,19 @@ android {
         }
     }
 
-    publish {
-        groupId = 'com.github.geniusgeek'
-        artifactId = 'trupple-mvp'
-        publishVersion = '0.1.1'
-        desc = 'This is a framework designed to provide flexibility for android developers to ' +
-                'implement Model View Presenter (MVP) pattern. It handles states perfectly and' +
-                ' fixes android rotation issues.'
-        licences = ['Apache-2.0']
-        uploadName='trupple-mvp'
-        website = 'https://github.com/geniusgeek/android-trupple-mvp.git'
-    }
+
+}
+
+publish {
+    groupId = 'com.github.geniusgeek'
+    artifactId = 'trupple-mvp'
+    publishVersion = '0.1.1'
+    desc = 'This is a framework designed to provide flexibility for android developers to ' +
+            'implement Model View Presenter (MVP) pattern. It handles states perfectly and' +
+            ' fixes android rotation issues.'
+    licences = ['Apache-2.0']
+    uploadName = 'trupple-mvp'
+    website = 'https://github.com/geniusgeek/android-trupple-mvp.git'
 }
 
 dependencies {
