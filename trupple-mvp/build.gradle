@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -7,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,6 +23,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    publish {
+        groupId = 'com.github.geniusgeek.trupple_mvp'
+        artifactId = 'trupple-mvp'
+        publishVersion = '0.1.1'
+        desc = 'Library that implements Model View Presenter Pattern'
+        licences = ['Apache-2.0']
+        uploadName='trupple-mvp'
+        website = 'https://github.com/geniusgeek/android-trupple-mvp.git'
     }
 }
 

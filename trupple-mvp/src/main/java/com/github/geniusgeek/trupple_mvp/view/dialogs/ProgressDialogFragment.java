@@ -4,7 +4,7 @@
  * published by Lukaround Software Foundation, either version 3 of the License or (at your option) any later version ;&#10;This program is distributed in the hope that it will be useful,but WITHOUT ANY WARRANTY; &#10;without even the implied warranty of;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&#10;  See www.lukaround.org/developer/licence
  */
 
-package com.github.geniusgeek.trupple_mvp.common;
+package com.github.geniusgeek.trupple_mvp.view.dialogs;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -14,10 +14,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-/**
- * @architect: Samuel Ekpe(Team Lead)
- * @author: Genius
- * @reviewers: Lukaround Android Team
+/** Generic Implementation for <link>{@link ProgressDialog}</> to take title and Message
  * Date: 5/20/16
  * Time: 3:25 AM
  */
@@ -82,13 +79,13 @@ public final class ProgressDialogFragment extends DialogFragment {
     }
 
     public void setOnRequestCancel(OnRequestCancel onRequestCancel) {
-        this.onRequestCancel = onRequestCancel;
+        this.onRequestCancel= onRequestCancel;
     }
 
     /**
      * interface to implement when target class have implementation when dialog is cancelled
      */
-    public interface OnRequestCancel {
+    interface OnRequestCancel {
         void onCancel();
     }
 }

@@ -6,8 +6,9 @@ import rx.Observable;
 import rx.functions.Action0;
 import rx.functions.Func0;
 
-/**
+/** A retry Observable, implementing an Observable cache for retry requests and Caching of request.
  * Created by root on 1/12/17.
+ * @param <T> defines the type of object to create a retry observable for
  */
 
 public final class OnErrorRetryCache<T> {
@@ -25,6 +26,12 @@ public final class OnErrorRetryCache<T> {
         });
     }
 
+    /**
+     * factory method creating a <link>{@link OnErrorRetryCache}</link> from an {@link Observable}
+     * @param source
+     * @param <T>
+     * @return
+     */
     public static <T> Observable<T> from(Observable<T> source) {
         return new OnErrorRetryCache<>(source).deferred;
     }
@@ -61,6 +68,9 @@ public final class OnErrorRetryCache<T> {
         cache = inProgress;
     }
 
+    /**
+     * release when terminated
+     */
     private void onTermination() {
         inProgress = null;
         singlePermit.release();

@@ -8,8 +8,6 @@ import android.os.Build;
 
 public class VersionUtils {
 
-
-
     /**
      * @throws AssertionError when trying to create an instance of this class
      */

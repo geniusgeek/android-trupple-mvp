@@ -8,6 +8,7 @@ import com.github.geniusgeek.trupple_mvp.view.BaseActivity;
 /**
  * This abstract class extends the Activity class and overrides lifecycle
  * callbacks for logging various lifecycle events.
+ * Mostly used to debug
  */
 public abstract class LifecycleLoggingActivity extends BaseActivity {
 

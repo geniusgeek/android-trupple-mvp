@@ -4,7 +4,7 @@
  * published by Lukaround Software Foundation, either version 3 of the License or (at your option) any later version ;&#10;This program is distributed in the hope that it will be useful,but WITHOUT ANY WARRANTY; &#10;without even the implied warranty of;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&#10;  See www.lukaround.org/developer/licence
  */
 
-package com.github.geniusgeek.trupple_mvp.common;
+package com.github.geniusgeek.trupple_mvp.view.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-/**
+/** Generic Implementation for <link>{@link AlertDialog}</> allowing customized views and listeners
  * created by geniusgeek
  * Date: 5/24/16
  * Time: 2:14 AM

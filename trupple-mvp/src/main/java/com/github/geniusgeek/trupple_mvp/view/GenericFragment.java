@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 
-import com.github.geniusgeek.trupple_mvp.common.ProgressDialogFragment;
+import com.github.geniusgeek.trupple_mvp.view.dialogs.ProgressDialogFragment;
 
 import java.lang.reflect.Field;
 import java.util.List;

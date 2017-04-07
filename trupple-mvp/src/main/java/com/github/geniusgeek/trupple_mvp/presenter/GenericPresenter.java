@@ -82,6 +82,10 @@ public abstract class GenericPresenter<M extends MVP.GenericModelOps
         mModelOps.onCreate ( this);
     }
 
+    /**
+     * get the View stashed in a {@link WeakReference}which is mostly a subclass of {@link Activity}
+     * @return
+     */
     public V getView() {
         if (mViewWeakReference.get() == null)
             throw new NullPointerException("the view is null");
@@ -99,11 +103,11 @@ public abstract class GenericPresenter<M extends MVP.GenericModelOps
 
 
     /**
-     *
-     * @param id
-     * @param adapter
-     * @param layoutManager
-     * @return
+     *Factory method to innitialize and create a recycler view
+     * @param id the id for the recycler view
+     * @param adapter the recycler adapter
+     * @param layoutManager the layout manager to use
+     * @return the {@link RecyclerView}
      */
     protected RecyclerView recyclerViewInnitializer(int id, RecyclerView.Adapter<?> adapter, RecyclerView.LayoutManager layoutManager) {
         RecyclerView recyclerView = (RecyclerView) ((Activity)getView()).findViewById ( id );
@@ -130,10 +134,15 @@ public abstract class GenericPresenter<M extends MVP.GenericModelOps
 
     @Override
     public void onDestroy(final boolean isChangingConfigurations) {
-
+        if(isChangingConfigurations)
+            return;
+         //otherwise clearup what needs to be cleaned up
     }
 
-
+    /**
+     * go to the next activity
+     * @param activityClass
+     */
     @Override
     public void goToNextActivity(Class<? extends Activity> activityClass) {
         getView().goToNextActivity(activityClass, null, null);

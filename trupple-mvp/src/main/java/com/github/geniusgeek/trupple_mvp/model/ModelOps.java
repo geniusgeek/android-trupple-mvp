@@ -6,6 +6,7 @@ import com.github.geniusgeek.trupple_mvp.presenter.PresenterOps;
  *
  * The base interface that an operations ("Ops") class in the
  * Model layer must implement.
+ * This class defines the interface for a Strategy Ops (from Strategy Design pattern) class to implement to carryout special functions
  *
  * @param <T> Defines the Presenter Ops
  */
