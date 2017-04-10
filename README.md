@@ -46,8 +46,9 @@ public class MainActivity extends GenericActivity<MainPresenter> {
 ```
 
 ### b. In presenter Class:
+There are two ways to implement the presenter classes: implementing MVP.GenericPresenter Interface or extending from GenericPresenter abstract class.
 
-i.    Implement the GenericPresenter interface, and pass in teh Model(any object) and the View(which is the Activity)
+i.    Implement the MVP.GenericPresenter interface, and pass in teh Model(any object) and the View(which is the Activity)
 
 
 ```
@@ -58,7 +59,7 @@ public class MainPresenter implements MVP.GenericPresenter<Model, MainActivity> 
 
 
 ii.    Extend the GenericPresenter abstract class, and pass in teh ModelOps: this defines the [strategy](https://en.wikipedia.org/wiki/Strategy_pattern) to be used for the Model and the and the View(which is the Activity).
-
+The GenericModelOps interface also contains an implementation of callback design to plugin for modelOps which will make request to recieve models from server.
 
 ```
 public class MainPresenter extends  GenericPresenter<ModelOps extends MVP.GenericModelOps, MainActivity> {
