@@ -69,7 +69,8 @@ public class MainPresenter extends  GenericPresenter<ModelOps extends MVP.Generi
 
 ### c. Optional: override initViews in the Activity class, so you can innitialize all the views here or better still, you can get access to the binder for the layout(but you must enable binder in you gradle dependency file).
 
-### d. Utility Classes:
+### d. Generic Utility Classes: 
+This library has pletora of utility classes for use, this classes have been used for projects in the past and i just feel it will be helpful to include it. Hope someone finds it useful 
 
 1. File Utils
 2. Bitmap Utils
@@ -84,6 +85,9 @@ public class MainPresenter extends  GenericPresenter<ModelOps extends MVP.Generi
 
 # Documentation
 coming soon
+
+# Example
+Coming soon
 
 # Contribution
 
