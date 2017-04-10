@@ -13,35 +13,46 @@ This library was inspired by Douglas Shmidth [POSA 14](https://github.com/dougla
 1. To include the library in yourr project, first add it via gradle
 
 a. In build.gradle config file
-
+```
 allprojects {
      repositories {
          ...
                maven { url "http://dl.bintray.com/geniusgeek/maven" }
               }
              }
+             ```
 b. In app.gradle dependency file
-
+```
 dependencies{
     compile 'com.github.geniusgeek:trupple-mvp:0.1.1'
 }
-
+```
 2. Usage
 a. In activity Class: 
+```
 public class MainActivity extends GenericActivity<MainPresenter> {
 ....
 }
+```
+
 b. In presenter Class:
-i. Implement the GenericPresenter interface, and pass in teh Model(any object) and the View(which is the Activity)
+
+i.    Implement the GenericPresenter interface, and pass in teh Model(any object) and the View(which is the Activity)
+
+```
 public class MainPresenter implements MVP.GenericPresenter<Model, MainActivity> {
 .....
 }
+```
 
+ii.    Extend the GenericPresenter abstract class, and pass in teh ModelOps: this defines the [strategy](https://en.wikipedia.org/wiki/Strategy_pattern) to be used for the Model and the and the View(which is the Activity).
 
-ii. Extend the GenericPresenter abstract class, and pass in teh ModelOps: this defines the [strategy](https://en.wikipedia.org/wiki/Strategy_pattern) to be used for the Model and the and the View(which is the Activity).
+```
 public class MainPresenter extends  GenericPresenter<ModelOps extends MVP.GenericModelOps, MainActivity> {
 .....
 }
+```
+
 c. Optional: override initViews in the Activity class, so you can innitialize all the views here or better still, you can get access to the binder for the layout(but you must enable binder in you gradle dependency file).
 
 d. Utility Classes:
