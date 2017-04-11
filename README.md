@@ -93,6 +93,7 @@ Coming soon
 
 Feel free to contribute to this library and help to improve it!
 And for suggestions, You can send a mail to me at geniusgeek2014@gmail.com
+or reach out to me on [twitter](https://twitter.com/samuelekpe)
 
 # License
 
